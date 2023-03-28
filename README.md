@@ -1,17 +1,17 @@
-# ELK Stack - Elastic Search with NestJS, Kibana, Logstash, Winstion
+# ELK Stack - Elasticsearch with NestJS, Kibana, Logstash, Winstion
 
 ELK stack with NestJS sample + Dockerize
 
 ## Run Application 
 
-``sh
+```sh
 $ chmod +x run.sh
 $ run.sh
-``
+```
 
 ### Run Docker Compose
 
-``sh
+```sh
 # Run nest api & pg migration:
 sudo docker compose -f docker-compose.api.yml up
 
@@ -19,6 +19,6 @@ sudo docker compose -f docker-compose.api.yml up
 sudo docker compose -f docker-compose.pg.yml up
 
 # Run elasticsearch
-sudo docker compose -f docker-compose.api.yml up
+sudo docker compose -f docker-compose.el.yml up
 
-``
+```
