@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  db:
+    container_name: db
+    image: postgres
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    networks:
+      - elastic-network
+  prisma:
+    container-name: prisma-studio
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    command: npx prisma studio
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/postgres?schema=public
+    ports:
+      - 7777:7777
+    depends_on:
+      - db
+    restart: always
+    networks:
+      - elastic-network
+
+networks:
+  elastic-network:
+    driver: bridge

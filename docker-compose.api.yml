@@ -1,0 +1,32 @@
+version: '3.5'
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile   
+    ports:
+      - '8000:8000'
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres?schema=public
+    volumes:
+      - ./:/app
+    networks:
+      - elastic-network
+
+  migration:
+    container_name: pg_migrate
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/app
+    working_dir: /app
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres?schema=public
+    command: npx prisma migrate dev --name=elastic_dev
+    networks:
+      - elastic-network
+
+networks:
+  elastic-network:
+    driver: bridge

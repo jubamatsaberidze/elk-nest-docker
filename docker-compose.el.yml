@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  elastic-search:
+    container_name: elastic
+    image: elasticsearch:7.8.1
+    restart: always
+    environment:
+      discovery.type: 'single-node'
+      xpack.security.enabled: 'true'
+      ELASTIC_USERNAME: ${ELASTICSEARCH_USERNAME}
+      ELASTIC_PASSWORD: ${ELASTICSEARCH_PASSWORD}
+    ports:
+      - "9200:9200"
+    networks:
+      - elastic-network
+
+networks:
+  elastic-network:
+    driver: bridge
